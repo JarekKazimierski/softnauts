@@ -42,4 +42,15 @@ class UserController extends Controller
 	    	]);
 	    });
     }
+
+    public function show(int $id)
+    {
+    	return User::findOrFail($id, [
+    		'id',
+    		'name',
+    		'email',
+    		'created_at',
+        	'updated_at'
+    	]);
+    }
 }
