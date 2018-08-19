@@ -29,4 +29,17 @@ class UserController extends Controller
     {
     	return $request->user();
     }
+
+    public function index()
+    {
+    	return Cache::remember('users', 1, function () {
+	    	return User::all([
+	    		'id',
+	    		'name',
+	    		'email',
+	    		'created_at',
+	        	'updated_at'
+	    	]);
+	    });
+    }
 }

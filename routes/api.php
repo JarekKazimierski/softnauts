@@ -12,6 +12,7 @@
 */
 
 Route::group(['middleware' => 'auth:api'], function(){
+	Route::get('/users', 'UserController@index');
 	Route::get('/me', 'UserController@me');
 });
 
