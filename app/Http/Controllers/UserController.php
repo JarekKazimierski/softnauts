@@ -25,6 +25,30 @@ class UserController extends Controller
     	]);
     }
 
+    public function update(Request $request, int $id)
+    {
+    	if ($id !== $request->user()->id) {
+    		return abort(403, 'Unathorized');
+    	}
+
+    	$this->validate($request, [
+    		'name' => ['required_without:password', 'min:3', 'max:255'],
+    		'password'=> ['required_without:name', 'min:6'],
+    	]);
+
+    	$user = User::findOrFail($id);
+
+    	if ($request->name) {
+    		$user->name = $request->name;
+    	}
+
+    	if ($request->password) {
+    		$user->password = bcrypt($request->password);
+    	}
+
+    	$user->save();
+    }
+
     public function me(Request $request)
     {
     	return $request->user();
