@@ -53,4 +53,13 @@ class UserController extends Controller
         	'updated_at'
     	]);
     }
+
+    public function destroy(Request $request, int $id)
+    {
+    	if ($id === $request->user()->id) {
+    		return abort(403, 'You can\'t destroy yourself');
+    	}
+
+    	User::findOrFail($id)->delete();
+    }
 }
