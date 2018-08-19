@@ -11,3 +11,4 @@
 |
 */
 
+Route::post('/users', 'UserController@store');
